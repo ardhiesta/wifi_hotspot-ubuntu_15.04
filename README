@@ -1,0 +1,16 @@
+ganti nama interface wlan0 ke nama yang lain
+	edit file /etc/udev/rules.d/70-persistent-net.rules
+
+isc-dhcp-server diganti dengan dnsmasq (ftp server, dns, dan dhcp server app)
+	konfigurasi /etc/dnsmasq.conf
+
+belum bisa matikan wifi dari terminal
+	nmcli nm wifi off dieksekusi error
+
+langkah2 sementara
+1. buka nm-applet, disable wifi manual dari nm-applet
+2. sudo rfkill unblock wlan
+3. sudo ifconfig wlan0 10.10.0.1/24
+4. sudo iptables -t nat -A POSTROUTING -s 10.10.0.0/16 -o eth0 -j MASQUERADE
+5. sudo systemctl start dnsmasq
+6. sudo hostapd /etc/hostapd/hostapd.conf
